@@ -32,6 +32,52 @@ export default function SingleMoviePage() {
     return stars;
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const name = e.target.inputName.value.trim();
+    const vote = parseInt(e.target.inputVote.value);
+    const text = e.target.inputText.value.trim();
+
+    if (!name || name.length < 1 || name.length > 50) {
+      alert("Please enter a username");
+      return;
+    }
+
+    if (!vote || isNaN(vote) || vote < 1 || vote > 5) {
+      alert("Please enter a valid vote (1-5)");
+      return;
+    }
+
+    if (!text || text.length === 0 || text.length < 10 || text.length > 500) {
+      alert("Please enter a valid review text");
+      return;
+    }
+
+    const data = {
+      movie_id: id,
+      name: name,
+      vote: vote,
+      text: text,
+    };
+
+    fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/movies`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.message);
+        } else {
+          window.location.reload();
+        }
+      });
+  }
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/movies/${id}`)
       .then((res) => res.json())
@@ -40,7 +86,7 @@ export default function SingleMoviePage() {
 
   return (
     <>
-      <div className="container mt-5 mb-5">
+      <section className="container mt-5 mb-5">
         <div className="row">
           <div className="col-12 col-md-4">
             <img
@@ -100,7 +146,68 @@ export default function SingleMoviePage() {
             )}
           </div>
         </div>
-      </div>
+      </section>
+      <section class="container">
+        <h2>Add Review</h2>
+        <form onSubmit={handleSubmit}>
+          <div class="mb-3 row">
+            <div class="col-6">
+              <label for="inputName" class="col-4 col-form-label">
+                Username
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="inputName"
+                id="inputName"
+                placeholder="Username"
+                min={1}
+                max={50}
+                required
+              />
+            </div>
+            <div class="col-6">
+              <label for="inputVote" class="col-4 col-form-label">
+                Vote
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                name="inputVote"
+                id="inputVote"
+                placeholder="Vote (1-5)"
+                min="1"
+                max="5"
+                required
+              />
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-12">
+              <label for="inputText" class="col-4 col-form-label">
+                Review
+              </label>
+              <textarea
+                className="form-control"
+                name="inputText"
+                id="inputText"
+                placeholder="Review body"
+                minLength={10}
+                maxLength={500}
+                rows={3}
+                required
+              />
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-sm-8">
+              <button type="submit" class="btn btn-primary">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
     </>
   );
 }
