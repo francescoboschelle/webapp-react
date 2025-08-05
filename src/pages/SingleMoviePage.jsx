@@ -147,17 +147,17 @@ export default function SingleMoviePage() {
           </div>
         </div>
       </section>
-      <section class="container">
+      <section className="container">
         <h2>Add Review</h2>
         <form onSubmit={handleSubmit}>
-          <div class="mb-3 row">
-            <div class="col-6">
-              <label for="inputName" class="col-4 col-form-label">
+          <div className="mb-3 row">
+            <div className="col-6">
+              <label htmlFor="inputName" className="col-4 col-form-label">
                 Username
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 name="inputName"
                 id="inputName"
                 placeholder="Username"
@@ -166,13 +166,13 @@ export default function SingleMoviePage() {
                 required
               />
             </div>
-            <div class="col-6">
-              <label for="inputVote" class="col-4 col-form-label">
+            <div className="col-6">
+              <label htmlFor="inputVote" className="col-4 col-form-label">
                 Vote
               </label>
               <input
                 type="number"
-                class="form-control"
+                className="form-control"
                 name="inputVote"
                 id="inputVote"
                 placeholder="Vote (1-5)"
@@ -182,9 +182,9 @@ export default function SingleMoviePage() {
               />
             </div>
           </div>
-          <div class="mb-3 row">
-            <div class="col-12">
-              <label for="inputText" class="col-4 col-form-label">
+          <div className="mb-3 row">
+            <div className="col-12">
+              <label htmlFor="inputText" className="col-4 col-form-label">
                 Review
               </label>
               <textarea
@@ -199,9 +199,9 @@ export default function SingleMoviePage() {
               />
             </div>
           </div>
-          <div class="mb-3 row">
-            <div class="col-sm-8">
-              <button type="submit" class="btn btn-primary">
+          <div className="mb-3 row">
+            <div className="col-sm-8">
+              <button type="submit" className="btn btn-primary">
                 Submit
               </button>
             </div>
